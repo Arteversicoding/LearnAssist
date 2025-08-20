@@ -1,0 +1,7 @@
+{
+  "name": "learnassist",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
