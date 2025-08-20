@@ -1,15 +1,51 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
-import { ExploreContainerComponent } from '../explore-container/explore-container.component';
+import { SupabaseService } from 'src/app/services/supabase';
 
 @Component({
-  selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent]
+  selector: 'app-tab3',
+  templateUrl: 'tab3.page.html',y
+  styleUrls: ['tab3.page.scss']
 })
-export class Tab2Page {
+export class Tab3Page {
+  materiLink: string = '';
+  materiList: any[] = [];
 
-  constructor() {}
+  constructor(private supabase: SupabaseService) {
+    this.loadMateri();
+  }
 
+  async saveMateri() {
+    const { data, error } = await this.supabase.client
+      .from('materi')
+      .insert([{ title: this.materiLink, type: 'link' }]);
+
+    if (!error) {
+      this.materiLink = '';
+      this.loadMateri();
+    }
+  }
+
+  async uploadFile(event: any) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const { data, error } = await this.supabase.client.storage
+      .from('materi-files')
+      .upload(`pdfs/${Date.now()}-${file.name}`, file);
+
+    if (!error) {
+      await this.supabase.client.from('materi').insert([
+        { title: file.name, type: 'pdf', url: data.path }
+      ]);
+      this.loadMateri();
+    }
+  }
+
+  async loadMateri() {
+    const { data, error } = await this.supabase.client
+      .from('materi')
+      .select('*');
+
+    if (!error) this.materiList = data || [];
+  }
 }
