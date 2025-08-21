@@ -1,0 +1,57 @@
+<!-- chat.page.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="header-title">
+        <div class="header-avatar">
+          <img src="assets/icon/chatbot_logo.svg" alt="Chatbot Logo" />
+        </div>
+        <span>AI Assistant</span>
+      </div>
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="refreshChat()">
+        <img src="assets/icon/refresh.svg" alt="Refresh" class="icon-btn" />
+      </ion-button>
+      <ion-button fill="clear">
+        <img src="assets/icon/titik_tiga.svg" alt="More" class="icon-btn" />
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="chat-date">Today</div>
+
+  <div *ngFor="let msg of messages" class="chat-row" [ngClass]="msg.sender">
+    <!-- Avatar AI -->
+    <div *ngIf="msg.sender === 'ai'" class="avatar ai">
+      <img src="assets/icon/chatbot_logo.svg" alt="Chatbot Logo" />
+    </div>
+
+    <!-- Chat Bubble -->
+    <div class="bubble" [ngClass]="msg.sender">
+      <p>{{ msg.text }}</p>
+      <span class="time">{{ msg.time }}</span>
+    </div>
+
+    <!-- Avatar User -->
+    <div *ngIf="msg.sender === 'user'" class="avatar user">
+      <ion-icon name="person-circle-outline"></ion-icon>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div class="chat-input">
+    <ion-input
+      placeholder="Type your message..."
+      [(ngModel)]="newMessage"
+    ></ion-input>
+    <ion-button class="send-btn" (click)="sendMessage()">
+      <img src="assets/icon/send.svg" alt="Send" />
+    </ion-button>
+  </div>
+</ion-footer>
+
