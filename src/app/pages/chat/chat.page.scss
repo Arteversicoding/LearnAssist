@@ -1,4 +1,4 @@
-/* chat.page.scss */
+/* chat.page.scss - Enhanced with new features */
 
 /* IONIC BACKGROUND */
 ion-content {
@@ -77,6 +77,12 @@ ion-buttons ion-button {
   display: flex;
   align-items: flex-end;
   margin: 12px;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .chat-row.ai {
@@ -125,6 +131,16 @@ ion-buttons ion-button {
   border-radius: 20px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-family: "Inter", sans-serif;
+  position: relative;
+
+  &.typing {
+    animation: pulse 1.5s infinite;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
 
 .bubble p {
@@ -171,6 +187,89 @@ ion-buttons ion-button {
   }
 }
 
+/* FILE MESSAGE STYLES */
+.file-message, .image-message {
+  .file-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .file-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .file-details {
+    .file-name {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: #000;
+
+      .dark-mode & {
+        color: #ffffff;
+      }
+    }
+
+    .file-type {
+      font-size: 12px;
+      color: #666;
+
+      .dark-mode & {
+        color: #ccc;
+      }
+    }
+  }
+
+  .uploaded-image {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+  }
+
+  .image-info p {
+    margin: 0;
+    font-size: 14px;
+  }
+}
+
+/* TYPING INDICATOR */
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  
+  .typing-dots {
+    display: flex;
+    gap: 4px;
+    
+    span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #bdbdbd;
+      animation: typingDot 1.4s infinite ease-in-out;
+      
+      &:nth-child(1) { animation-delay: -0.32s; }
+      &:nth-child(2) { animation-delay: -0.16s; }
+      &:nth-child(3) { animation-delay: 0s; }
+    }
+  }
+}
+
+@keyframes typingDot {
+  0%, 80%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* INPUT AREA */
 .chat-input {
   display: flex;
@@ -184,6 +283,19 @@ ion-buttons ion-button {
   .dark-mode & {
     background: #2a2a2a;
     border-color: #555555;
+  }
+}
+
+.attach-btn {
+  --background: transparent;
+  --color: #bdbdbd;
+  width: 45px;
+  height: 45px;
+  margin-right: 4px;
+
+  .attach-icon {
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -218,6 +330,12 @@ ion-footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s ease;
+
+  &:disabled {
+    --background: #e0e0e0;
+    opacity: 0.6;
+  }
 
   .dark-mode & {
     --background: #1976d2;
@@ -227,6 +345,45 @@ ion-footer {
 .send-btn img {
   width: 25px;
   height: 25px;
+}
+
+/* EMOJI SUPPORT */
+.bubble p {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  
+  /* Support for emojis */
+  font-family: "Inter", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+}
+
+/* ATTACHMENT ACTION SHEET STYLING */
+ion-action-sheet {
+  --background: #ffffff;
+  
+  .dark-mode & {
+    --background: #2a2a2a;
+    --color: #ffffff;
+  }
+}
+
+/* SMOOTH SCROLLING */
+ion-content {
+  scroll-behavior: smooth;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 480px) {
+  .bubble {
+    max-width: 85%;
+  }
+  
+  .chat-row {
+    margin: 8px;
+  }
+  
+  .header-title span {
+    font-size: 14px;
+  }
 }
 
 /* GLOBAL DARK MODE */

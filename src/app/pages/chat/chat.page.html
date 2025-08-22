@@ -1,4 +1,4 @@
-<!-- chat.page.html -->
+<!-- chat.page.html - Enhanced with real chatbot features -->
 <ion-header>
   <ion-toolbar>
     <!-- Back button untuk navigasi -->
@@ -9,9 +9,9 @@
     <ion-title>
       <div class="header-title">
         <div class="header-avatar">
-          <img src="assets/icon/chatbot_logo.svg" alt="Chatbot Logo" />
+          <img src="assets/icon/chatbot_logo.svg" alt="LearnAssist Logo" />
         </div>
-        <span>AI Assistant</span>
+        <span>LearnAssist (LA)</span>
       </div>
     </ion-title>
 
@@ -19,7 +19,7 @@
       <ion-button fill="clear" (click)="refreshChat()">
         <img src="assets/icon/refresh.svg" alt="Refresh" class="icon-btn" />
       </ion-button>
-      <!-- UPDATED: Tombol titik tiga untuk membuka sidebar -->
+      <!-- Tombol titik tiga untuk membuka sidebar -->
       <ion-button fill="clear" (click)="openMateriSidebar()">
         <img src="assets/icon/titik_tiga.svg" alt="More" class="icon-btn" />
       </ion-button>
@@ -27,19 +27,52 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [class.dark-mode]="isDarkMode">
+<ion-content [class.dark-mode]="isDarkMode" #chatContainer>
   <div class="chat-date">Today</div>
 
   <div *ngFor="let msg of messages" class="chat-row" [ngClass]="msg.sender">
     <!-- Avatar AI -->
     <div *ngIf="msg.sender === 'ai'" class="avatar ai">
-      <img src="assets/icon/chatbot_logo.svg" alt="Chatbot Logo" />
+      <img src="assets/icon/chatbot_logo.svg" alt="LearnAssist Logo" />
     </div>
 
     <!-- Chat Bubble -->
-    <div class="bubble" [ngClass]="msg.sender">
-      <p>{{ msg.text }}</p>
-      <span class="time">{{ msg.time }}</span>
+    <div class="bubble" [ngClass]="msg.sender" [class.typing]="msg.isTyping">
+      <!-- Text Message -->
+      <div *ngIf="msg.type === 'text' || !msg.type">
+        <p [innerHTML]="msg.text"></p>
+        <span class="time">{{ msg.time }}</span>
+      </div>
+
+      <!-- File Message -->
+      <div *ngIf="msg.type === 'file'" class="file-message">
+        <div class="file-info">
+          <img src="assets/icon/document.svg" alt="File" class="file-icon" />
+          <div class="file-details">
+            <p class="file-name">{{ msg.fileName }}</p>
+            <span class="file-type">Dokumen</span>
+          </div>
+        </div>
+        <span class="time">{{ msg.time }}</span>
+      </div>
+
+      <!-- Image Message -->
+      <div *ngIf="msg.type === 'image'" class="image-message">
+        <img *ngIf="msg.fileUrl" [src]="msg.fileUrl" alt="Uploaded image" class="uploaded-image" />
+        <div class="image-info">
+          <p>{{ msg.text }}</p>
+        </div>
+        <span class="time">{{ msg.time }}</span>
+      </div>
+
+      <!-- Typing indicator -->
+      <div *ngIf="msg.isTyping" class="typing-indicator">
+        <div class="typing-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
     </div>
 
     <!-- Avatar User -->
@@ -51,18 +84,27 @@
 
 <ion-footer [class.dark-mode]="isDarkMode">
   <div class="chat-input">
+    <!-- Attachment button -->
+    <ion-button fill="clear" class="attach-btn" (click)="presentAttachmentOptions()">
+      <img src="assets/icon/attach.svg" alt="Attach" class="attach-icon" />
+    </ion-button>
+
     <ion-input
-      placeholder="Type your message..."
+      placeholder="Ketik pesan Anda..."
       [(ngModel)]="newMessage"
       (keyup.enter)="sendMessage()"
     ></ion-input>
-    <ion-button class="send-btn" (click)="sendMessage()">
+
+    <ion-button class="send-btn" (click)="sendMessage()" [disabled]="!newMessage.trim()">
       <img src="assets/icon/send.svg" alt="Send" />
     </ion-button>
   </div>
 </ion-footer>
 
-<!-- ADDED: Materi Sidebar Component -->
+<!-- Hidden file input -->
+<input type="file" #fileInput style="display: none" (change)="onFileSelected($event)" />
+
+<!-- Materi Sidebar Component -->
 <app-materi-sidebar
   [isOpen]="isSidebarOpen"
   [isDarkMode]="isDarkMode"
@@ -71,3 +113,18 @@
   (addMateri)="handleAddMateri()"
   (searchMateri)="handleSearchMateri($event)"
 ></app-materi-sidebar>
+
+<!-- Add Materi Page Component -->
+<app-add-materi-page
+  [isOpen]="isAddMateriOpen"
+  [isDarkMode]="isDarkMode"
+  (close)="closeAddMateri()"
+  (materiAdded)="handleMateriAdded($event)"
+></app-add-materi-page>
+
+<!-- Find Materi Page Component -->
+<app-find-materi-page
+  [isOpen]="isFindMateriOpen"
+  [isDarkMode]="isDarkMode"
+  (close)="closeFindMateri()"
+></app-find-materi-page>

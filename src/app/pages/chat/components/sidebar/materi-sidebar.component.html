@@ -1,4 +1,4 @@
-<!-- materi-sidebar.component.html -->
+<!-- Updated materi-sidebar.component.html -->
 <div class="sidebar-overlay" [class.open]="isOpen" (click)="onClose()">
   <div class="sidebar-content" [class.dark-mode]="isDarkMode" (click)="$event.stopPropagation()">
     
@@ -6,18 +6,26 @@
     <div class="sidebar-header">
       <div class="header-left">
         <div class="header-icon">
-          <!-- PERBAIKAN: Path logo materi -->
-          <img src="assets/icon/materi.svg" alt="Materi" class="svg-icon" />
+          <img src="assets/icon/materi.svg" alt="Materi" class="svg-icon header-materi-icon" />
         </div>
         <span class="header-title">Materi</span>
       </div>
       
       <div class="header-right">
-        <!-- PERBAIKAN: Dark Mode Toggle Button -->
+        <!-- Dark Mode Toggle Button -->
         <ion-button fill="clear" class="mode-toggle" (click)="onToggleDarkMode()">
           <img 
             [src]="isDarkMode ? 'assets/icon/light-mode.svg' : 'assets/icon/dark-mode.svg'" 
             [alt]="isDarkMode ? 'Light Mode' : 'Dark Mode'"
+            class="svg-icon mode-icon" 
+          />
+        </ion-button>
+        
+        <!-- Light Mode Toggle Button (for design completeness) -->
+        <ion-button fill="clear" class="mode-toggle" (click)="onToggleDarkMode()">
+          <img 
+            src="assets/icon/brightness.svg" 
+            alt="Brightness"
             class="svg-icon mode-icon" 
           />
         </ion-button>
@@ -29,24 +37,24 @@
 
     <!-- Action Buttons -->
     <div class="action-buttons">
-      <!-- PERBAIKAN: Exit Button -->
+      <!-- Exit Button -->
       <ion-button fill="clear" class="exit-btn" (click)="onClose()">
-        <img src="assets/icon/exit.svg" alt="Exit" class="svg-icon small-icon" />
+        <img src="assets/icon/back.svg" alt="Exit" class="svg-icon small-icon" />
       </ion-button>
 
-      <!-- PERBAIKAN: Add Materi Button -->
+      <!-- Add Materi Button -->
       <ion-button class="action-btn add-btn" (click)="onAddMateri()">
-        <img src="assets/icon/centang.svg" alt="Add" class="svg-icon btn-icon" />
+        <img src="assets/icon/add.svg" alt="Add" class="svg-icon btn-icon" />
         <span>Tambahkan</span>
       </ion-button>
 
-      <!-- PERBAIKAN: Search Materi Button -->
+      <!-- Search Materi Button -->
       <ion-button class="action-btn find-btn" (click)="onSearchMateri()">
         <img src="assets/icon/search.svg" alt="Search" class="svg-icon btn-icon" />
         <span>Temukan</span>
       </ion-button>
 
-      <!-- PERBAIKAN: Select All Button -->
+      <!-- Select All Button -->
       <ion-button fill="clear" class="select-all-btn" (click)="selectAll()">
         <img 
           src="assets/icon/select-all.svg" 
@@ -65,15 +73,14 @@
         [class.selected]="item.selected"
         (click)="toggleSelection(item)"
       >
-        <div class="pdf-icon">
-          <!-- PERBAIKAN: PDF Logo -->
-          <img src="assets/icon/pdf-logo.svg" alt="PDF" class="svg-icon pdf-svg" />
+        <div class="materi-icon">
+          <img [src]="getIconForType(item.type)" [alt]="item.type" class="svg-icon type-icon" />
         </div>
         <div class="materi-info">
           <h3>{{ item.title }}</h3>
           <p>{{ item.date }}</p>
         </div>
-      </div>
+      </div>  
     </div>
 
   </div>

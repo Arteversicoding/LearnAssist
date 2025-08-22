@@ -1,0 +1,92 @@
+<!-- find-materi-page.component.html -->
+<div class="page-overlay" [class.open]="isOpen" (click)="onClose()">
+  <div class="page-content" [class.dark-mode]="isDarkMode" (click)="$event.stopPropagation()">
+    
+    <!-- Header -->
+    <div class="page-header">
+      <div class="header-center">
+        <div class="header-icon">
+          <img src="assets/icon/materi.svg" alt="Find Materi" class="svg-icon header-materi-icon" />
+        </div>
+        <span class="header-title">Temukan Materi</span>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Search Section -->
+    <div class="search-section">
+      <div class="search-container">
+        <div class="search-box">
+          <img src="assets/icon/search.svg" alt="Search" class="svg-icon search-icon" />
+          <ion-input
+            placeholder="Search Materi"
+            [(ngModel)]="searchTerm"
+            (ionInput)="onSearchInput()"
+            (keyup.enter)="onSearchSubmit()"
+            class="search-input"
+          ></ion-input>
+          <ion-button 
+            *ngIf="searchTerm" 
+            fill="clear" 
+            class="clear-btn"
+            (click)="clearSearch()"
+          >
+            <img src="assets/icon/close.svg" alt="Clear" class="svg-icon clear-icon" />
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="results-section">
+      <!-- Materials Found -->
+      <div *ngIf="filteredMaterials.length > 0" class="materials-list">
+        <div 
+          *ngFor="let material of filteredMaterials" 
+          class="material-item"
+          [class.selected]="material.selected"
+          (click)="selectMaterial(material)"
+        >
+          <div class="material-icon">
+            <img [src]="getIconForType(material.type)" [alt]="material.type" class="svg-icon type-icon" />
+          </div>
+          <div class="material-info">
+            <h3>{{ material.title }}</h3>
+            <p>{{ material.date }}</p>
+          </div>
+          <div *ngIf="material.selected" class="selected-indicator">
+            <img src="assets/icon/check.svg" alt="Selected" class="svg-icon check-icon" />
+          </div>
+        </div>
+      </div>
+
+      <!-- No Results Found -->
+      <div *ngIf="filteredMaterials.length === 0 && searchTerm" class="no-results">
+        <div class="no-results-icon">
+          <img src="assets/icon/not-found.svg" alt="Not Found" class="svg-icon not-found-icon" />
+        </div>
+        <h2>Not found</h2>
+        <p>Materi yang Anda cari tidak ditemukan. Coba gunakan kata kunci yang berbeda.</p>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="filteredMaterials.length === 0 && !searchTerm" class="empty-state">
+        <div class="empty-state-icon">
+          <img src="assets/icon/empty-folder.svg" alt="Empty" class="svg-icon empty-icon" />
+        </div>
+        <h2>Belum ada materi</h2>
+        <p>Silakan tambahkan materi terlebih dahulu untuk dapat mencarinya.</p>
+      </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="back-section">
+      <ion-button class="back-btn" fill="clear" (click)="onClose()">
+        <img src="assets/icon/back.svg" alt="Back" class="svg-icon back-icon" />
+      </ion-button>
+    </div>
+
+  </div>
+</div>

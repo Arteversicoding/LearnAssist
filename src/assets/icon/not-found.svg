@@ -1,0 +1,7 @@
+﻿<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="35" cy="35" r="20" stroke="#bdbdbd" stroke-width="3" fill="none"/>
+  <path d="50 50L65 65" stroke="#bdbdbd" stroke-width="3" stroke-linecap="round"/>
+  <path d="M27 27L43 43" stroke="#bdbdbd" stroke-width="2" stroke-linecap="round"/>
+  <path d="M43 27L27 43" stroke="#bdbdbd" stroke-width="2" stroke-linecap="round"/>
+  <text x="40" y="70" font-family="Arial, sans-serif" font-size="14" fill="#bdbdbd" text-anchor="middle">?</text>
+</svg>

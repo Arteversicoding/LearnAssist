@@ -1,0 +1,7 @@
+﻿<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M10 20H30L35 15H70V65H10V20Z" fill="#e0e0e0" stroke="#bdbdbd" stroke-width="2"/>
+  <path d="M10 20H70V25H10V20Z" fill="#bdbdbd"/>
+  <line x1="25" y1="40" x2="55" y2="40" stroke="#bdbdbd" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="30" y1="47" x2="50" y2="47" stroke="#bdbdbd" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="35" y1="54" x2="45" y2="54" stroke="#bdbdbd" stroke-width="1" stroke-dasharray="3,3"/>
+</svg>

@@ -1,4 +1,4 @@
-// materi-sidebar.component.ts
+// Updated materi-sidebar.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -7,6 +7,7 @@ interface MateriItem {
   id: string;
   title: string;
   date: string;
+  type: 'pdf' | 'youtube' | 'word' | 'link' | 'text';
   selected?: boolean;
 }
 
@@ -26,16 +27,13 @@ export class MateriSidebarComponent {
   @Output() searchMateri = new EventEmitter<string>();
 
   materiList: MateriItem[] = [
-    { id: '1', title: 'Uji kopetensi 1', date: 'Sabtu, 08 2025' },
-    { id: '2', title: 'Uji kopetensi 2', date: 'Sabtu, 09 2025' },
-    { id: '3', title: 'Uji kopetensi 3', date: 'Sabtu, 10 2025' },
-    { id: '4', title: 'Uji kopetensi 4', date: 'Sabtu, 11 2025' },
-    { id: '5', title: 'Uji kopetensi 5', date: 'Sabtu, 12 2025' }
+    { id: '1', title: 'PDF', date: 'Sabtu, 08 2025', type: 'pdf' },
+    { id: '2', title: 'Youtube', date: 'Sabtu, 08 2025', type: 'youtube' },
+    { id: '3', title: 'Word', date: 'Sabtu, 08 2025', type: 'word' },
+    { id: '4', title: 'Link', date: 'Sabtu, 08 2025', type: 'link' }
   ];
 
-  constructor() {
-    // No need for addIcons anymore since we'll use custom SVG
-  }
+  constructor() {}
 
   onClose() {
     this.close.emit();
@@ -66,5 +64,22 @@ export class MateriSidebarComponent {
 
   get allSelected(): boolean {
     return this.materiList.every(item => item.selected);
+  }
+
+  getIconForType(type: string): string {
+    switch (type) {
+      case 'pdf':
+        return 'assets/icon/pdf-logo.svg';
+      case 'youtube':
+        return 'assets/icon/youtube.svg';
+      case 'word':
+        return 'assets/icon/word.svg';
+      case 'link':
+        return 'assets/icon/link.svg';
+      case 'text':
+        return 'assets/icon/text.svg';
+      default:
+        return 'assets/icon/document.svg';
+    }
   }
 }

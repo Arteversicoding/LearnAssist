@@ -1,0 +1,109 @@
+<!-- add-materi-page.component.html -->
+<div class="page-overlay" [class.open]="isOpen" (click)="onClose()">
+  <div class="page-content" [class.dark-mode]="isDarkMode" (click)="$event.stopPropagation()">
+    
+    <!-- Header -->
+    <div class="page-header">
+      <div class="header-left">
+        <div class="header-icon">
+          <img src="assets/icon/materi.svg" alt="Add Materi" class="svg-icon header-materi-icon" />
+        </div>
+        <span class="header-title">Tambahkan Materi</span>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Upload Section -->
+    <div class="upload-section">
+      <div 
+        class="upload-area" 
+        (dragover)="onDragOver($event)" 
+        (drop)="onDrop($event)"
+        (click)="triggerFileInput()"
+      >
+        <div class="upload-button">
+          <img src="assets/icon/upload.svg" alt="Upload" class="svg-icon upload-icon" />
+        </div>
+        <p class="upload-text">Upload Sumber</p>
+        <p class="upload-instruction">Tarik lalu lepas atau pilih file untuk diupload</p>
+      </div>
+      <p class="supported-files">Jenis file yang didukung: PDF, .txt, Markdown, Audio (mis. mp3)</p>
+    </div>
+
+    <!-- Hidden File Input -->
+    <input 
+      type="file" 
+      id="fileInput" 
+      style="display: none" 
+      multiple 
+      accept=".pdf,.doc,.docx,.txt,.md,.mp3,.wav,.m4a"
+      (change)="onFileSelected($event)"
+    />
+
+    <!-- Google Drive Section -->
+    <div class="integration-section">
+      <div class="integration-box">
+        <div class="integration-header">
+          <img src="assets/icon/google-drive.svg" alt="Google Drive" class="svg-icon drive-icon" />
+          <h3>Google Drive</h3>
+        </div>
+        <div class="integration-buttons">
+          <ion-button class="integration-btn" (click)="connectGoogleDocs()">
+            <img src="assets/icon/google-docs.svg" alt="Google Docs" class="svg-icon btn-icon" />
+            <span>Google Dokumen</span>
+          </ion-button>
+          <ion-button class="integration-btn" (click)="connectGoogleSlides()">
+            <img src="assets/icon/google-slides.svg" alt="Google Slides" class="svg-icon btn-icon" />
+            <span>Google Slides</span>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Link Section -->
+    <div class="integration-section">
+      <div class="integration-box">
+        <div class="integration-header">
+          <img src="assets/icon/link.svg" alt="Link" class="svg-icon link-icon" />
+          <h3>Link</h3>
+        </div>
+        <div class="integration-buttons">
+          <ion-button class="integration-btn" (click)="addLink()">
+            <img src="assets/icon/website.svg" alt="Website" class="svg-icon btn-icon" />
+            <span>Situs</span>
+          </ion-button>
+          <ion-button class="integration-btn" (click)="addLink()">
+            <img src="assets/icon/youtube.svg" alt="YouTube" class="svg-icon btn-icon" />
+            <span>Youtube</span>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copy Text Section -->
+    <div class="integration-section">
+      <div class="integration-box">
+        <div class="integration-header">
+          <img src="assets/icon/copy.svg" alt="Copy" class="svg-icon copy-icon" />
+          <h3>Copy</h3>
+        </div>
+        <div class="integration-buttons">
+          <ion-button class="integration-btn single-btn" (click)="addCopyText()">
+            <img src="assets/icon/copy-text.svg" alt="Copy Text" class="svg-icon btn-icon" />
+            <span>copy text</span>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exit Button -->
+    <div class="exit-section">
+      <ion-button class="exit-btn" fill="clear" (click)="onClose()">
+        <img src="assets/icon/back.svg" alt="Exit" class="svg-icon exit-icon" />
+      </ion-button>
+    </div>
+
+  </div>
+</div>
