@@ -1,0 +1,304 @@
+/* materi-sidebar.component.scss */
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+
+  &.open {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.sidebar-content {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  max-width: 412px;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 40px 0 0 40px;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+  padding: 0;
+
+  .sidebar-overlay.open & {
+    transform: translateX(0);
+  }
+
+  &.dark-mode {
+    background: #1a1a1a;
+    color: #ffffff;
+
+    .sidebar-header .header-title {
+      color: #ffffff;
+    }
+
+    .divider {
+      border-color: #444;
+    }
+
+    .materi-item {
+      background: #2a2a2a;
+      color: #ffffff;
+
+      .materi-info p {
+        color: #bdbdbd;
+      }
+    }
+  }
+}
+
+/* Header */
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  height: 78px;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .header-icon {
+      width: 50px;
+      height: 50px;
+      background: #2196f3;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 18px;
+      color: #000000;
+    }
+  }
+
+  .header-right {
+    display: flex;
+    gap: 10px;
+
+    .mode-toggle {
+      --background: transparent;
+      --color: #000000;
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+/* Divider */
+.divider {
+  width: 100%;
+  height: 2px;
+  background: #bdbdbd;
+  margin: 0;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 10px;
+
+  .exit-btn {
+    width: 27px;
+    height: 27px;
+    --background: rgba(100, 181, 246, 0.35);
+    --border-radius: 10px;
+    box-shadow: inset 0px -2px 4px rgba(0, 0, 0, 0.2), inset 0px 2px 4px rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px);
+  }
+
+  .action-btn {
+    height: 38px;
+    --background: rgba(100, 181, 246, 0.4);
+    --border-radius: 23px;
+    box-shadow: inset 0px -2px 4px rgba(0, 0, 0, 0.2), inset 0px 2px 4px rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px);
+    font-family: 'SF Pro', sans-serif;
+    font-weight: 590;
+    font-size: 16px;
+    --color: #000000;
+    
+    span {
+      margin-left: 8px;
+    }
+
+    &.add-btn {
+      flex: 1;
+      max-width: 150px;
+    }
+
+    &.find-btn {
+      flex: 1;
+      max-width: 150px;
+    }
+  }
+
+  .select-all-btn {
+    width: 27px;
+    height: 27px;
+    --background: rgba(100, 181, 246, 0.35);
+    --border-radius: 10px;
+    box-shadow: inset 0px -2px 4px rgba(0, 0, 0, 0.2), inset 0px 2px 4px rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px);
+  }
+}
+
+/* Materi List */
+.materi-list {
+  padding: 0 21px;
+  padding-bottom: 50px;
+}
+
+.materi-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  background: #f5f5f5;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  padding: 20px;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.25), inset 0px 2px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+
+  &.selected {
+    background: rgba(100, 181, 246, 0.3);
+    
+    &::after {
+      content: '✓';
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: #2196f3;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  }
+
+  .pdf-icon {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #f44336;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    flex-shrink: 0;
+  }
+
+  .materi-info {
+    flex: 1;
+
+    h3 {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 30px;
+      color: #000000;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: 10px;
+      line-height: 15px;
+      color: #bdbdbd;
+    }
+  }
+}
+
+/* SVG Icon Styles - TEMPLATE STYLES FOR YOUR CUSTOM SVGs */
+.svg-icon {
+  display: block;
+  
+  /* Header Materi Icon */
+  &.header-materi-icon {
+    width: 35px;
+    height: 35px;
+    filter: brightness(0) invert(1); // Makes SVG white for colored background
+  }
+  
+  /* Mode Toggle Icons */
+  &.mode-icon {
+    width: 30px;
+    height: 30px;
+    
+    .dark-mode & {
+      filter: brightness(0) invert(1); // Makes SVG white in dark mode
+    }
+  }
+  
+  /* Small Action Button Icons (Exit, Select All) */
+  &.small-icon {
+    width: 15px;
+    height: 15px;
+  }
+  
+  /* Action Button Icons (Add, Search) */
+  &.btn-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  /* PDF Icon in materi list */
+  &.pdf-svg {
+    width: 48px;
+    height: 29px;
+  }
+  
+  /* Selected state for select all button */
+  &.selected {
+    background: #000000;
+    border-radius: 2px;
+    filter: brightness(0) invert(1);
+  }
+}
+
+/* Dark mode adjustments for SVG icons */
+.dark-mode {
+  .svg-icon {
+    &.small-icon,
+    &.btn-icon {
+      filter: brightness(0) invert(1); // Makes dark icons white in dark mode
+    }
+    
+    &.pdf-svg {
+      // Keep PDF icon red even in dark mode, or adjust as needed
+      // filter: none; 
+    }
+  }
+}

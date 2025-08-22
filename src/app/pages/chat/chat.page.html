@@ -1,6 +1,11 @@
 <!-- chat.page.html -->
 <ion-header>
   <ion-toolbar>
+    <!-- Back button untuk navigasi -->
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    
     <ion-title>
       <div class="header-title">
         <div class="header-avatar">
@@ -14,14 +19,15 @@
       <ion-button fill="clear" (click)="refreshChat()">
         <img src="assets/icon/refresh.svg" alt="Refresh" class="icon-btn" />
       </ion-button>
-      <ion-button fill="clear">
+      <!-- UPDATED: Tombol titik tiga untuk membuka sidebar -->
+      <ion-button fill="clear" (click)="openMateriSidebar()">
         <img src="assets/icon/titik_tiga.svg" alt="More" class="icon-btn" />
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [class.dark-mode]="isDarkMode">
   <div class="chat-date">Today</div>
 
   <div *ngFor="let msg of messages" class="chat-row" [ngClass]="msg.sender">
@@ -38,16 +44,17 @@
 
     <!-- Avatar User -->
     <div *ngIf="msg.sender === 'user'" class="avatar user">
-      <ion-icon name="person-circle-outline"></ion-icon>
+      <ion-icon name="person-circle"></ion-icon>
     </div>
   </div>
 </ion-content>
 
-<ion-footer>
+<ion-footer [class.dark-mode]="isDarkMode">
   <div class="chat-input">
     <ion-input
       placeholder="Type your message..."
       [(ngModel)]="newMessage"
+      (keyup.enter)="sendMessage()"
     ></ion-input>
     <ion-button class="send-btn" (click)="sendMessage()">
       <img src="assets/icon/send.svg" alt="Send" />
@@ -55,3 +62,12 @@
   </div>
 </ion-footer>
 
+<!-- ADDED: Materi Sidebar Component -->
+<app-materi-sidebar
+  [isOpen]="isSidebarOpen"
+  [isDarkMode]="isDarkMode"
+  (close)="closeSidebar()"
+  (toggleDarkMode)="toggleDarkMode()"
+  (addMateri)="handleAddMateri()"
+  (searchMateri)="handleSearchMateri($event)"
+></app-materi-sidebar>

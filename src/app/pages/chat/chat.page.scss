@@ -3,13 +3,22 @@
 /* IONIC BACKGROUND */
 ion-content {
   --background: #ffffff;
+
+  &.dark-mode {
+    --background: #1a1a1a;
+  }
 }
 
 /* HEADER */
 ion-toolbar {
   --background: #fff;
   --color: #000;
-  border: none; /* flat tanpa garis bawah */
+  border: none;
+
+  .dark-mode & {
+    --background: #2a2a2a;
+    --color: #ffffff;
+  }
 }
 
 .header-title {
@@ -29,10 +38,14 @@ ion-toolbar {
   font-weight: 600;
   font-size: 16px;
   color: #000;
+
+  .dark-mode & {
+    color: #ffffff;
+  }
 }
 
 ion-buttons ion-button {
-  color: #bdbdbd; /* ikon kanan abu tipis */
+  color: #bdbdbd;
 }
 
 .icon-btn {
@@ -52,6 +65,11 @@ ion-buttons ion-button {
   color: #000;
   text-align: center;
   width: fit-content;
+
+  .dark-mode & {
+    background: #444444;
+    color: #ffffff;
+  }
 }
 
 /* CHAT ROW */
@@ -114,6 +132,10 @@ ion-buttons ion-button {
   font-size: 15px;
   font-weight: 400;
   color: #000;
+
+  .dark-mode & {
+    color: #000000; /* Keep text black for readability */
+  }
 }
 
 .bubble .time {
@@ -126,11 +148,27 @@ ion-buttons ion-button {
 .bubble.ai {
   background: #e3f2fd;
   border-radius: 20px 20px 20px 5px;
+
+  .dark-mode & {
+    background: #1e3a5f;
+  }
+
+  .dark-mode & p {
+    color: #ffffff;
+  }
 }
 
 .bubble.user {
   background: #fce4ec;
   border-radius: 20px 20px 5px 20px;
+
+  .dark-mode & {
+    background: #5d1a3a;
+  }
+
+  .dark-mode & p {
+    color: #ffffff;
+  }
 }
 
 /* INPUT AREA */
@@ -142,6 +180,11 @@ ion-buttons ion-button {
   border-radius: 12px;
   margin: 8px;
   padding: 4px 8px;
+
+  .dark-mode & {
+    background: #2a2a2a;
+    border-color: #555555;
+  }
 }
 
 ion-input {
@@ -149,11 +192,19 @@ ion-input {
   font-size: 14px;
   font-weight: 400;
   color: #000;
+
+  .dark-mode & {
+    --color: #ffffff;
+  }
 }
 
 ion-footer {
-  background: #ffffff; /* Footer jadi putih */
-  border-top: none;       /* Kalau mau hilangkan garis atas default */
+  background: #ffffff;
+  border-top: none;
+
+  &.dark-mode {
+    background: #1a1a1a;
+  }
 }
 
 /* SEND BUTTON */
@@ -167,9 +218,40 @@ ion-footer {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  .dark-mode & {
+    --background: #1976d2;
+  }
 }
 
 .send-btn img {
   width: 25px;
   height: 25px;
+}
+
+/* GLOBAL DARK MODE */
+:global(body.dark-mode) {
+  --ion-background-color: #1a1a1a;
+  --ion-background-color-rgb: 26, 26, 26;
+  --ion-text-color: #ffffff;
+  --ion-text-color-rgb: 255, 255, 255;
+  --ion-color-step-50: #1e1e1e;
+  --ion-color-step-100: #2a2a2a;
+  --ion-color-step-150: #363636;
+  --ion-color-step-200: #414141;
+  --ion-color-step-250: #4d4d4d;
+  --ion-color-step-300: #595959;
+  --ion-color-step-350: #656565;
+  --ion-color-step-400: #717171;
+  --ion-color-step-450: #7d7d7d;
+  --ion-color-step-500: #898989;
+  --ion-color-step-550: #949494;
+  --ion-color-step-600: #a0a0a0;
+  --ion-color-step-650: #acacac;
+  --ion-color-step-700: #b8b8b8;
+  --ion-color-step-750: #c4c4c4;
+  --ion-color-step-800: #d0d0d0;
+  --ion-color-step-850: #dbdbdb;
+  --ion-color-step-900: #e7e7e7;
+  --ion-color-step-950: #f3f3f3;
 }

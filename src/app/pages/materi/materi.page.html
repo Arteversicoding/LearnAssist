@@ -5,7 +5,16 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <h1>Kelola Materi Pembelajaran</h1>
+  <p>Upload file PDF untuk materi pembelajaran Anda</p>
+  
   <ion-button expand="block" (click)="pickFile()">
-    Pilih File
+    📁 Pilih File PDF
   </ion-button>
+
+  <!-- Tampilkan file yang dipilih -->
+  <div *ngIf="selectedFileName" class="file-info">
+    <h3>File Dipilih:</h3>
+    <p>{{ selectedFileName }}</p>
+  </div>
 </ion-content>
